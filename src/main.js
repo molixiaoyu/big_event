@@ -5,6 +5,8 @@ import store from './store'
 // elemenUi 
 import './elementUi';
 
+import '@/assets/reset.css'
+
 Vue.config.productionTip = false
 
 new Vue({
