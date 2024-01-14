@@ -108,8 +108,8 @@ export default {
         // 用户登陆
         async userLogin() {
 
-            // 验证用户名
-            let userNameReg = /^[a-zA-Z][a-zA-Z0-9]{4,}$/
+                        // 验证用户名
+                        let userNameReg = /^[a-zA-Z][a-zA-Z0-9]{4,}$/
             // 验证密码
             let passwordReg = /^.{6,}$/;
 
@@ -120,8 +120,6 @@ export default {
             if (!passwordReg.test(this.pwd)) {
                 return this.$message.error('密码不能少于6位')
             }
-
-
             let res = await userLoginApi(this.username, this.pwd)
             console.log(res);
             if (res.msg) {
