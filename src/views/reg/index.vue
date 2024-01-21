@@ -92,8 +92,6 @@ export default {
                 pwd: this.pwd
             })
             if (regRes.status == 200) {
-                // 存储用户名用户登陆成功信息查询
-                localStorage.setItem('username', this.username)
                 // 注册成功跳转到登陆
                 this.regFlag = false
                 // 清空表单
@@ -108,8 +106,8 @@ export default {
         // 用户登陆
         async userLogin() {
 
-                        // 验证用户名
-                        let userNameReg = /^[a-zA-Z][a-zA-Z0-9]{4,}$/
+            // 验证用户名
+            let userNameReg = /^[a-zA-Z][a-zA-Z0-9]{4,}$/
             // 验证密码
             let passwordReg = /^.{6,}$/;
 
@@ -121,15 +119,19 @@ export default {
                 return this.$message.error('密码不能少于6位')
             }
             let res = await userLoginApi(this.username, this.pwd)
-            console.log(res);
             if (res.msg) {
                 return this.$message.error(res.msg)
             }
 
+            // 存储用户名用户登陆成功信息查询
+            localStorage.setItem('username', this.username)
+
+
+            // 设置用户默认头像
+            localStorage.setItem('image', res.image)
+
             this.$message.success('登录成功')
-            this.$router.replace({
-                name: 'home'
-            })
+            this.$router.push({ name: 'home' });
         }
     }
 }

@@ -25,15 +25,14 @@
             <el-aside width="200px">
                 <div class="user-box">
                     <img :src="user_pic" alt="" />
-                    <!-- <img src="../../assets/images/head.png" alt="" v-else /> -->
                     <span>欢迎{{ nickName }}</span>
                 </div>
                 <!-- 左侧导航 -->
-                <el-menu :default-active="$route.path" class="el-menu-vertical-demo" background-color="#23262E"
-                    text-color="#fff" active-text-color="#409EFF" unique-opened router>
+                <el-menu default-active="/echats" class="el-menu-vertical-demo" background-color="#23262E" text-color="#fff"
+                    active-text-color="#409EFF" unique-opened router>
                     <template>
                         <!-- 不包含子项的一级 -->
-                        <el-menu-item index="1">
+                        <el-menu-item index="/echats">
                             <i class="el-icon-house"></i>首页
                         </el-menu-item>
 
@@ -44,13 +43,13 @@
                                 <span>文章管理</span>
                             </template>
                             <!-- 二级菜单 -->
-                            <el-menu-item index="subItem.indexPath">
+                            <el-menu-item index="/category">
                                 <i class="el-icon-notebook-2"></i>文章类别
                             </el-menu-item>
-                            <el-menu-item index="subItem.indexPath">
+                            <el-menu-item index="/list">
                                 <i class="el-icon-notebook-2"></i>文章列表
                             </el-menu-item>
-                            <el-menu-item index="subItem.indexPath">
+                            <el-menu-item index="/publish">
                                 <i class="el-icon-notebook-2"></i>发表文章
                             </el-menu-item>
                         </el-submenu>
@@ -61,13 +60,13 @@
                                 <span>个人中心</span>
                             </template>
                             <!-- 二级菜单 -->
-                            <el-menu-item index="subItem.indexPath">
+                            <el-menu-item index="information">
                                 <i class="el-icon-document-copy"></i>基本资料
                             </el-menu-item>
-                            <el-menu-item index="subItem.indexPath">
+                            <el-menu-item index="userImage">
                                 <i class="el-icon-document-copy"></i>更换头像
                             </el-menu-item>
-                            <el-menu-item index="subItem.indexPath">
+                            <el-menu-item index="userPassword">
                                 <i class="el-icon-document-copy"></i>重置密码
                             </el-menu-item>
                         </el-submenu>
@@ -111,7 +110,11 @@ export default {
             localStorage.setItem('userInfor', JSON.stringify(res.data))
 
             // 获取用户头像
-            this.user_pic = localStorage.getItem('image')
+            if (localStorage.getItem('image') == 'undefined') {
+                this.user_pic = 'http://127.0.0.1:5932/upload/1.jpg'
+            } else {
+                this.user_pic = localStorage.getItem('image')
+            }
 
             // 获取用户别名
             let userInfor = localStorage.getItem('userInfor')
@@ -128,8 +131,10 @@ export default {
                     type: 'success',
                     message: '退出成功!'
                 });
+                // 退出清空用户数据
                 localStorage.removeItem('userInfor')
-                this.$router.replace('/')
+                localStorage.removeItem('username')
+                this.$router.replace('/reg')
             }).catch(() => {
                 this.$message({
                     type: 'info',
