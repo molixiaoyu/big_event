@@ -3,7 +3,7 @@
         <!-- 头部区域 -->
         <el-header>
             <!-- 左侧的 logo -->
-            <img src="@/assets/images/logo.png" alt="" />
+            <img style="margin-left: 40px;" src="@/assets/images/logo.png" alt="" />
             <!-- 右侧的菜单 -->
             <el-menu class="el-menu-top" mode="horizontal" background-color="#23262E" text-color="#fff"
                 active-text-color="#409EFF">
@@ -17,7 +17,7 @@
                     <el-menu-item index="1-2"><i class="el-icon-camera"></i>更换头像</el-menu-item>
                     <el-menu-item index="1-3"><i class="el-icon-key"></i>重置密码</el-menu-item>
                 </el-submenu>
-                <el-menu-item @click="loginOut" index="2"><i class="el-icon-switch-button"></i>退出</el-menu-item>
+                <el-menu-item @click="loginOut" index="2" class="out"><i class="el-icon-switch-button"></i>退出</el-menu-item>
             </el-menu>
         </el-header>
         <el-container>
@@ -221,5 +221,8 @@ export default {
 ::v-deep .el-menu--horizontal>.el-submenu .el-submenu__title {
     display: flex;
     align-items: center;
+}
+.out{
+    width: 100px;
 }
 </style>
