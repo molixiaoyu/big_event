@@ -21,3 +21,19 @@ export const delNewApi = (id) => {
         data: { id }
     })
 }
+// 删除文章
+export const uploadApi = (fm) => {
+    return request({
+        url: `/upload`,
+        method: 'POST',
+        data: fm
+    })
+}
+// 新增文章
+export const addNewApi = (data) => {
+    return request({
+        url: `/addNew`,
+        method: 'POST',
+        data
+    })
+}

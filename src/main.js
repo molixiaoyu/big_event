@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 // elemenUi 
 import './elementUi';
+// 富文本编辑器
+import './quillEditor'
 
 import '@/assets/reset.css'
 
