@@ -15,9 +15,10 @@
                         <el-button type="primary"
                             style="background-color: #16baaa;border-color: #16baaa;margin-right: 10px;"
                             @click="editType(row.id)">编辑</el-button>
-                        <el-button slot="reference" type="success"
-                            style="background-color: orangered;border-color: orangered;"
-                            @click="delType(row.id)">删除</el-button>
+                        <el-popconfirm title="确定删除这个分类吗?" @confirm="delType(row.id)">
+                            <el-button slot="reference" type="success"
+                                style="background-color: orangered;border-color: orangered;">删除</el-button>
+                        </el-popconfirm>
 
                     </template>
                 </el-table-column>
