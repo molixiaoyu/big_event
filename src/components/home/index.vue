@@ -78,7 +78,7 @@
                 <!-- 页面主体区域 -->
                 <!-- 二级路由 -->
                 <el-main>
-                    <router-view></router-view>
+                    <router-view @editUserInfor="editUserInfor"></router-view>
                 </el-main>
                 <!-- 底部 footer 区域 -->
                 <el-footer>©mlxy 2024/1/10</el-footer>
@@ -142,6 +142,9 @@ export default {
                 });
             });
 
+        },
+        editUserInfor(data){
+            this.nickName = data.nickname
         }
     }
 }
