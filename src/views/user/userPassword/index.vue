@@ -1,5 +1,9 @@
 <template>
-    <div>重置密码</div>
+    <el-card class="box-card">
+        <div slot="header" class="clearfix">
+            <span>重置密码</span>
+        </div>
+    </el-card>
 </template>
 
 

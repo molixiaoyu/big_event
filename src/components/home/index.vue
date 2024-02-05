@@ -78,7 +78,7 @@
                 <!-- 页面主体区域 -->
                 <!-- 二级路由 -->
                 <el-main>
-                    <router-view @editUserInfor="editUserInfor"></router-view>
+                    <router-view @editUserInfor="editUserInfor" @editUserImage="editUserImage"></router-view>
                 </el-main>
                 <!-- 底部 footer 区域 -->
                 <el-footer>©mlxy 2024/1/10</el-footer>
@@ -110,11 +110,7 @@ export default {
             localStorage.setItem('userInfor', JSON.stringify(res.data))
 
             // 获取用户头像
-            if (localStorage.getItem('image') == 'undefined') {
-                this.user_pic = 'http://127.0.0.1:5932/upload/1.jpg'
-            } else {
-                this.user_pic = localStorage.getItem('image')
-            }
+            this.user_pic = JSON.parse(localStorage.getItem('userInfor')).user_pic
 
             // 获取用户别名
             let userInfor = localStorage.getItem('userInfor')
@@ -145,6 +141,9 @@ export default {
         },
         editUserInfor(data){
             this.nickName = data.nickname
+        },
+        editUserImage(url){
+            this.user_pic = url
         }
     }
 }
