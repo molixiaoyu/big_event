@@ -144,10 +144,10 @@ export default {
                 typename: null
             }
 
-            this.$confirm('是否跳转到文章列表?', '提示', {
+            this.$confirm('发布成功,是否跳转到文章列表?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
-                type: 'warning'
+                type: 'success'
             }).then(() => {
                 this.$router.push('/list')
             }).catch(() => {
