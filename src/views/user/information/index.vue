@@ -5,13 +5,13 @@
         </div>
         <el-form status-icon ref="ruleForm" label-width="100px" class="demo-ruleForm">
             <el-form-item label="登录名称">
-                <el-input type="text" v-model="ruleForm.username" autocomplete="off" disabled></el-input>
+                <el-input type="text" v-model="ruleForm.username" autocomplete="off" disabled style="width: 300px;"></el-input>
             </el-form-item>
             <el-form-item label="用户昵称" prop="nickName">
-                <el-input type="text" v-model="ruleForm.nickname" autocomplete="off"></el-input>
+                <el-input type="text" v-model="ruleForm.nickname" autocomplete="off" style="width: 300px;"></el-input>
             </el-form-item>
             <el-form-item label="用户邮箱">
-                <el-input v-model="ruleForm.email" type="email"></el-input>
+                <el-input v-model="ruleForm.email" type="email" style="width: 300px;"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm">提交</el-button>

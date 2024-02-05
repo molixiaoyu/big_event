@@ -219,14 +219,17 @@ export default {
             if (!file) {
                 return this.$message.error("请选择图片");
             }
-            // 判断文件大小，大于60M提醒用户图片太大
-            if (file.size > 600000) {
-                return this.$message.error("图片太大，请重新上传");
-            }
+
             // 判断文件类型
             if (file.type.substr(0, 5) !== "image") {
                 return this.$message.error("请上传图片类型的文件");
             }
+
+            // 判断文件大小，大于60M提醒用户图片太大
+            if (file.size > 600000) {
+                return this.$message.error("图片太大，请重新上传");
+            }
+
 
             let formData = new FormData();
             formData.append("attrName", file);
