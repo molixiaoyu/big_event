@@ -37,3 +37,19 @@ export const addNewApi = (data) => {
         data
     })
 }
+// 获取编辑文章数据
+export const getNewListApi = (id) => {
+    return request({
+        url: `/getNewList?id=${id}`,
+    })
+}
+
+// 确认编辑文章 
+
+export const editNesApi = (data) => {
+    return request({
+        url: `/editNes`,
+        method: 'POST',
+        data
+    })
+}

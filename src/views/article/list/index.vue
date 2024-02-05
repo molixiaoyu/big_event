@@ -34,7 +34,7 @@
                 </el-table-column>
                 <el-table-column prop="address" label="操作">
                     <template slot-scope="{row}">
-                        <el-button type="primary" style="margin-right: 20px;" @click="dialogVisible = true">编辑</el-button>
+                        <el-button type="primary" style="margin-right: 20px;" @click="onDialog(row.id)">编辑</el-button>
                         <el-popconfirm title="确定删除这篇文章吗?" @confirm="delArticle(row.id)">
                             <el-button slot="reference" type="danger">删除</el-button>
                         </el-popconfirm>
@@ -54,7 +54,7 @@
 
 
         <!-- 修改文章弹窗 -->
-        <el-dialog title="编辑文章" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+        <el-dialog title="编辑文章" :visible.sync="dialogVisible" width="80%" :before-close="handleClose">
             <div slot="header" class="clearfix">
                 <span>写文章</span>
             </div>
@@ -63,7 +63,7 @@
                     <el-input v-model="pubForm.title" placeholder="请输入文章标题"></el-input>
                 </el-form-item>
                 <el-form-item label="文章类别" prop="typeid">
-                    <el-select v-model="pubForm.typeid" placeholder="请选择文章类别" style="width: 100%;">
+                    <el-select v-model="pubForm.typeid" placeholder="请选择文章类别" style="width: 100%;" @change="editTypename">
                         <el-option v-for="item in typeList" :key="item.id" :label=item.name :value=item.id></el-option>
                     </el-select>
                 </el-form-item>
@@ -78,15 +78,15 @@
                         <el-button icon="el-icon-plus" @click="addArticleImg" class="addBtn">上传封面</el-button>
                     </div>
                 </el-form-item>
-                <el-button type="primary" style="margin-left: 150px;">保存</el-button>
-                <el-button type="danger">重置</el-button>
+                <el-button type="primary" style="margin-left: 150px;" @click="editArticle">保存</el-button>
+                <el-button type="danger" @click="resetting">重置</el-button>
             </el-form>
         </el-dialog>
     </el-card>
 </template>
 
 <script>
-import { getArticleApi, getSelectNewApi, delNewApi, uploadApi } from '@/api/list'
+import { getArticleApi, getSelectNewApi, delNewApi, uploadApi, getNewListApi, editNesApi } from '@/api/list'
 export default {
     name: 'list',
     data() {
@@ -143,6 +143,19 @@ export default {
         this.getSelectNew()
     },
     methods: {
+
+        // 验证表单是否通过
+        submitForm() {
+            let flag = null
+            this.$refs.pubFormRef.validate((valid) => {
+                if (valid) {
+                    flag = true
+                } else {
+                    flag = false;
+                }
+            });
+            return flag
+        },
         handleClose(done) {
             this.$confirm('关闭可能导致更新信息丢失,确认关闭?')
                 .then(_ => {
@@ -227,6 +240,47 @@ export default {
         addArticleImg() {
             this.$refs.inputRef.click()
         },
+        // 打开修改弹窗并请求数据
+        async onDialog(id) {
+            this.dialogVisible = true
+
+            let res = await getNewListApi(id)
+
+
+
+            this.pubForm = res.data
+
+
+
+            this.$refs.pubFormRef.clearValidate(); // 在打开对话框时清除验证信息
+        },
+
+        // 修改弹窗的分类名
+        editTypename() {
+            this.pubForm.typename = this.typeList.find(item => item.id == this.pubForm.typeid).name
+        },
+        // 确定修改文章
+        async editArticle() {
+
+            let flag = this.submitForm()
+            if (!flag) return this.$message.error('请完整填写哦')
+
+
+            let res = await editNesApi(this.pubForm)
+
+            this.$message.success('修改成功')
+
+            this.dialogVisible = false
+
+            this.getSelectNew()
+            console.log(res);
+        },
+        // 重置修改数据
+        resetting() {
+            this.pubForm = {}
+            // 默认封面
+            this.pubForm.pic = 'http://127.0.0.1:5932/upload/1.jpg'
+        }
     }
 }
 </script>
